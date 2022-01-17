@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set("Asia/Taipei");
 session_start();
+// $ls=[1=>'普遍級',2=>'輔導級',3=>'保護級',4=>'限制級'];
 
 class DB{
     protected $dsn="mysql:host=localhost;charset=utf8;dbname=web03";
@@ -8,7 +9,7 @@ class DB{
     protected $pw='';
     protected $pdo;
     protected $table;
-
+    protected $level=[1=>'普遍級',2=>'輔導級',3=>'保護級',4=>'限制級'];
 
     public function __construct($table){
         $this->table=$table;
@@ -124,8 +125,10 @@ class DB{
     public function q($sql){
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
+    // 回傳分級文字
+    public function level($level){
+        return $this->level[$level];
+    }
 }
 
 function dd($array){
